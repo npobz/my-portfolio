@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Section */
+        header {
+            background: white;
+            padding: 60px 0;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+        }
+
+        header h1 {
+            font-size: 3em;
+            color: #667eea;
+            margin-bottom: 10px;
+            animation: slideIn 0.8s ease;
+        }
+
+        header p {
+            font-size: 1.2em;
+            color: #666;
+            font-weight: 300;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Sections */
+        section {
+            background: white;
+            margin-bottom: 30px;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 0.8s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        section h2 {
+            font-size: 2em;
+            color: #667eea;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        section h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 2px;
+        }
+
+        /* About Me Section */
+        #about p {
+            font-size: 1.05em;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        /* Skills Section */
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .skill-item {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 500;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .skill-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+        /* Work History Section */
+        .work-items {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .work-item {
+            background: #f8f9ff;
+            padding: 25px;
+            border-left: 4px solid #667eea;
+            border-radius: 8px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .work-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+        }
+
+        .work-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .work-header h3 {
+            color: #667eea;
+            font-size: 1.2em;
+            margin: 0;
+        }
+
+        .work-date {
+            background: #667eea;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 500;
+        }
+
+        .work-company {
+            color: #764ba2;
+            font-weight: 600;
+            margin: 5px 0;
+        }
+
+        .work-description {
+            color: #555;
+            line-height: 1.6;
+            margin: 10px 0 0 0;
+        }
+        /* Contact Section */
+        #contact {
+            text-align: center;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .contact-item {
+            padding: 20px;
+            background: #f8f9ff;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .contact-item h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .contact-item p {
+            color: #666;
+        }
+
+        a {
+            color: #667eea;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #764ba2;
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            color: white;
+            font-size: 0.9em;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2em;
+            }
+
+            section {
+                padding: 25px;
+            }
+
+            section h2 {
+                font-size: 1.5em;
+            }
+
+            .skills-container {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <h1>Nicholas Pobanz</h1>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Objective Section -->
+        <section id="objective">
+            <h2>Objective</h2>
+            <p>
+                To learn, to build, and successfully overcome all challenges. Develop professional relationships and help many along the way.
+            </p>
+        </section>
+
+        <!-- About Me Section -->
+        <section id="about">
+            <h2>About Me</h2>
+            <p>
+                Welcome to my portfolio! I'm a passionate developer with a love for creating beautiful and functional digital experiences. I strive to deliver projects that not only meet client needs but exceed expectations. When I'm not coding, you can find me exploring new technologies, contributing to open-source projects, or enjoying time outdoors.
+            </p>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills">
+            <h2>Skills</h2>
+            <div class="skills-container">
+                <div class="skill-item">Python</div>
+                <div class="skill-item">C++</div>
+            </div>
+        </section>
+
+        <!-- Work History Section -->
+        <section id="work-history">
+            <h2>Work History</h2>
+            <div class="work-items">
+                <div class="work-item">
+                    <div class="work-header">
+                        <h3>Team Member</h3>
+                        <span class="work-date">05/2022 - Currently</span>
+                    </div>
+                    <p class="work-company">Toyota TMMX | San Antonio, Texas 78264</p>
+                    <p class="work-description">Engine Assembly production. Help create engines for many models of Toyota vehicles such as Tundras and Sequoias and ensure perfect quality. Provide teamwork, dependability, and ownership for company needs to customers.</p>
+                </div>
+
+                <div class="work-item">
+                    <div class="work-header">
+                        <h3>Instructor / Administration</h3>
+                        <span class="work-date">12/2021 - 05/2022</span>
+                    </div>
+                    <p class="work-company">S.A Kids Karate | San Antonio, Texas 78240</p>
+                    <p class="work-description">Responsible for all well-being of students, teaching classes, handling payments and administrative duties, vehicle maintenance.</p>
+                </div>
+
+                <div class="work-item">
+                    <div class="work-header">
+                        <h3>Production Warehouse</h3>
+                        <span class="work-date">07/2021 - 12/2021</span>
+                    </div>
+                    <p class="work-company">Reliant Plastics Solutions | Gainesville, Texas 76240</p>
+                    <p class="work-description">Molding plastic products warehouse. Ensuring machines are running and producing parts, driving forklift to move products, maintenance over machinery and learning company codes to operate machinery.</p>
+                </div>
+
+                <div class="work-item">
+                    <div class="work-header">
+                        <h3>Bay Supervisor</h3>
+                        <span class="work-date">06/2020 - 07/2021</span>
+                    </div>
+                    <p class="work-company">Blue Beacon Truck Wash | Denton, Texas 76208</p>
+                    <p class="work-description">Customer service role, handling payments and ensuring all needs from customers are met. Responsible for all employees on shift along with maintenance and chemicals on facility.</p>
+                </div>
+
+                <div class="work-item">
+                    <div class="work-header">
+                        <h3>Care Staff</h3>
+                        <span class="work-date">02/2018 - 05/2020</span>
+                    </div>
+                    <p class="work-company">GSMYC | San Marcos, Texas 78666</p>
+                    <p class="work-description">Foster home for children currently entering or in care of DFPS (Texas Child Protective Services). Ensure all health needs for children are met, handle proper documentation for caseworkers and social workers.</p>
+                </div>
+
+                <div class="work-item">
+                    <div class="work-header">
+                        <h3>Inbound Package Handler</h3>
+                        <span class="work-date">01/2017 - 01/2018</span>
+                    </div>
+                    <p class="work-company">Amazon Fulfillment Center | San Marcos, Texas 78666</p>
+                    <p class="work-description">Inbound packages, move at fast pace, unload trucks, move product to designated areas.</p>
+                </div>
+
+                <div class="work-item">
+                    <div class="work-header">
+                        <h3>Karate Instructor</h3>
+                        <span class="work-date">05/2014 - 12/2016</span>
+                    </div>
+                    <p class="work-company">S.A Kids Karate | San Antonio, Texas 78240</p>
+                    <p class="work-description">Local karate after-school care, summer camps, and evening classes. In charge of tuition payments, teaching classes, well-being for all students, and overall day-to-day situations.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact">
+            <h2>Contact Me</h2>
+            <p>I'd love to hear from you! Feel free to reach out through any of the following channels:</p>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <h3>Email</h3>
+                    <p><a href="mailto:npobanz023@gmail.com">npobanz023@gmail.com</a></p>
+                </div>
+                <div class="contact-item">
+                    <h3>Phone</h3>
+                    <p><a href="tel:210-854-2713">210-854-2713</a></p>
+                </div>
+                <div class="contact-item">
+                    <h3>Location</h3>
+                    <p>6315 Heathers Bend, San Antonio, Texas 78227</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 My Portfolio. All rights reserved.</p>
+    </footer>
+</body>
+</html>
