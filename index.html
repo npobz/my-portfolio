@@ -32,13 +32,35 @@
             text-align: center;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* background SVG container */
+        .header-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
         }
 
         header h1 {
             font-size: 3em;
-            color: #667eea;
+            color: #000;
             margin-bottom: 10px;
             animation: slideIn 0.8s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* single-line Contact Me under the name, matching h1 style */
+        .contact-line {
+            font-size: 3em;
+            color: #000;
+            margin-top: 6px;
+            position: relative;
+            z-index: 1;
+            font-weight: 700;
         }
 
         header p {
@@ -56,6 +78,78 @@
                 opacity: 1;
                 transform: translateY(0);
             }
+        }
+
+        /* Waterfall animation for SVG group */
+        .waterflow {
+            animation: flow 1s linear infinite;
+            transform-origin: center top;
+        }
+
+        @keyframes flow {
+            from { transform: translateY(-6px); }
+            to   { transform: translateY(6px); }
+        }
+
+        /* Leaf outline style + gentle sway animation */
+        .leaf-outline {
+            fill: none;
+            stroke: #2e7d32;
+            stroke-width: 3;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            opacity: 0.95;
+            transform-box: fill-box;
+            transform-origin: center;
+            animation: sway 4s ease-in-out infinite;
+        }
+
+        .leaf-fill {
+            transform-box: fill-box;
+            transform-origin: center;
+            opacity: 0.95;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.08));
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .leaf-vein { opacity: 0.95; }
+
+        .leaf-inner { opacity: 0.9; }
+
+        @keyframes float {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
+            100% { transform: translateY(0); }
+        }
+
+        @keyframes sway {
+            0% { transform: rotate(-3deg); }
+            50% { transform: rotate(3deg); }
+            100% { transform: rotate(-3deg); }
+        }
+
+        /* Diagonal moving lines behind leaves */
+        .diag-lines { transform-box: fill-box; transform-origin: center; }
+        .diag-line {
+            stroke: rgba(255,180,60,0.95);
+            stroke-width: 6;
+            stroke-linecap: round;
+            opacity: 0.98;
+            transform-box: fill-box;
+            transform-origin: center;
+            animation: diagMove 12s linear infinite;
+        }
+        .diag-line.n1 { animation-delay: 0s; }
+        .diag-line.n2 { animation-delay: -1.8s; }
+        .diag-line.n3 { animation-delay: -3.6s; }
+        .diag-line.n4 { animation-delay: -5.4s; }
+        .diag-line.n5 { animation-delay: -7.2s; }
+        .diag-line.n6 { animation-delay: -9s; }
+        .diag-line.n7 { animation-delay: -10.8s; }
+
+        @keyframes diagMove {
+            from { transform: translateX(-300px); }
+            to   { transform: translateX(300px); }
         }
 
         /* Sections */
@@ -221,6 +315,38 @@
             text-decoration: underline;
         }
 
+        /* Header contact compact layout */
+        .header-contacts {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            align-items: center;
+            margin-top: 12px;
+            position: relative;
+            z-index: 1;
+            flex-wrap: wrap;
+        }
+
+        .header-contacts .contact-item {
+            padding: 8px 12px;
+            background: rgba(248,249,255,0.9);
+            border-radius: 8px;
+            border-left: 3px solid #667eea;
+            display: inline-flex;
+            gap: 8px;
+            align-items: center;
+            min-width: 140px;
+        }
+
+        .header-contacts .contact-item h3 { display:none; }
+
+        /* ensure header contact text and links are black */
+        .header-contacts p,
+        .header-contacts a {
+            color: #000;
+        }
+
+
         /* Footer */
         footer {
             text-align: center;
@@ -232,6 +358,10 @@
         /* Responsive Design */
         @media (max-width: 768px) {
             header h1 {
+                font-size: 2em;
+            }
+
+            .contact-line {
                 font-size: 2em;
             }
 
@@ -252,8 +382,87 @@
 <body>
     <!-- Header -->
     <header>
+        <div class="header-bg" aria-hidden="true">
+            <svg viewBox="0 0 1200 300" preserveAspectRatio="xMidYMid slice" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="mountainGrad" x1="0" x2="0" y1="0" y2="1">
+                        <stop offset="0%" stop-color="#8aa0ff" />
+                        <stop offset="100%" stop-color="#6b4aa3" />
+                    </linearGradient>
+                    <linearGradient id="waterGrad" x1="0" x2="0" y1="0" y2="1">
+                        <stop offset="0%" stop-color="#a6d8ff" />
+                        <stop offset="100%" stop-color="#4da6ff" />
+                    </linearGradient>
+                    <linearGradient id="leafGrad" x1="0" x2="1" y1="0" y2="1">
+                        <stop offset="0%" stop-color="#76c893" />
+                        <stop offset="100%" stop-color="#2e7d32" />
+                    </linearGradient>
+                </defs>
+
+                <!-- mountains -->
+                <polygon points="0,260 220,100 420,260" fill="url(#mountainGrad)" opacity="0.95" />
+                <polygon points="280,260 520,80 760,260" fill="url(#mountainGrad)" opacity="0.9" />
+                <polygon points="640,260 900,120 1200,260" fill="url(#mountainGrad)" opacity="0.95" />
+
+                <!-- waterfall area (clipped) -->
+                <g class="waterflow" transform="translate(440,80)">
+                    <rect x="0" y="0" width="40" height="180" fill="url(#waterGrad)" rx="6" />
+                    <rect x="6" y="6" width="28" height="168" fill="rgba(255,255,255,0.08)" rx="4" />
+                </g>
+
+                <!-- diagonal moving lines behind leaves (7 centered lines) -->
+                <g class="diag-lines" transform="rotate(-22 600 150)" aria-hidden="true">
+                    <line class="diag-line n1" x1="-200" y1="120" x2="1400" y2="120" />
+                    <line class="diag-line n2" x1="-200" y1="140" x2="1400" y2="140" />
+                    <line class="diag-line n3" x1="-200" y1="160" x2="1400" y2="160" />
+                    <line class="diag-line n4" x1="-200" y1="180" x2="1400" y2="180" />
+                    <line class="diag-line n5" x1="-200" y1="200" x2="1400" y2="200" />
+                    <line class="diag-line n6" x1="-200" y1="220" x2="1400" y2="220" />
+                    <line class="diag-line n7" x1="-200" y1="240" x2="1400" y2="240" />
+                </g>
+
+                <!-- leaf shapes above mountains (fills + veins + outline) -->
+                <g aria-hidden="true" transform="translate(0,0)">
+                    <!-- left leaf -->
+                    <g transform="translate(180,40) scale(1.1)">
+                        <path class="leaf-fill" d="M0 40 C20 10, 60 10, 80 40 C60 70, 20 70, 0 40" fill="url(#leafGrad)" />
+                        <path class="leaf-vein" d="M40 10 L40 70" stroke="#cfeedd" stroke-width="2" stroke-linecap="round" />
+                        <path class="leaf-outline" d="M0 40 C20 10, 60 10, 80 40 C60 70, 20 70, 0 40" />
+                        <path class="leaf-inner" d="M20 30 C30 25, 36 28, 40 40 C44 52, 50 55, 60 50" stroke="#bff1d6" stroke-width="1.6" fill="none" stroke-linecap="round" />
+                    </g>
+
+                    <!-- right leaf -->
+                    <g transform="translate(800,50) scale(1)">
+                        <path class="leaf-fill" d="M0 40 C20 10, 60 10, 80 40 C60 70, 20 70, 0 40" fill="url(#leafGrad)" />
+                        <path class="leaf-vein" d="M40 10 L40 70" stroke="#cfeedd" stroke-width="2" stroke-linecap="round" />
+                        <path class="leaf-outline" d="M0 40 C20 10, 60 10, 80 40 C60 70, 20 70, 0 40" />
+                        <path class="leaf-inner" d="M18 34 C28 28, 36 30, 40 40 C44 50, 52 52, 62 48" stroke="#bff1d6" stroke-width="1.4" fill="none" stroke-linecap="round" />
+                    </g>
+                </g>
+            </svg>
+        </div>
+
         <div class="container">
             <h1>Nicholas Pobanz</h1>
+            <div class="contact-line">Contact Me</div>
+            <div class="header-contacts" aria-label="Contact information">
+                <div class="contact-item">
+                    <h3>Email</h3>
+                    <p><a href="https://mail.google.com/mail/?view=cm&fs=1&to=npobanz023@gmail.com" target="_blank" rel="noopener">npobanz023@gmail.com</a></p>
+                </div>
+                <div class="contact-item">
+                    <h3>LinkedIn</h3>
+                    <p><a href="https://www.linkedin.com/in/nicholas-pobanz-044799238" target="_blank" rel="noopener">LinkedIn</a></p>
+                </div>
+                <div class="contact-item">
+                    <h3>Phone</h3>
+                    <p><a href="tel:210-854-2713">210-854-2713</a></p>
+                </div>
+                <div class="contact-item">
+                    <h3>Location</h3>
+                    <p>6315 Heathers Bend, San Antonio, Texas 78227</p>
+                </div>
+            </div>
         </div>
     </header>
 
@@ -263,7 +472,7 @@
         <section id="objective">
             <h2>Objective</h2>
             <p>
-                To learn, to build, and successfully overcome all challenges. Develop professional relationships and help many along the way.
+                Build, and successfully overcome all challenges. Improve any system with the least amount of cost. Develop professional relationships and help many along the way.
             </p>
         </section>
 
@@ -286,6 +495,23 @@
                 <div class="skill-item">Machine Learning</div>
                 <div class="skill-item">SQL</div>
                 <div class="skill-item">Data Visualization</div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects">
+            <h2>Projects</h2>
+            <div class="projects-grid">
+                <div class="project-item">
+                    <h3>Portfolio Website</h3>
+                    <p>Personal portfolio built with responsive HTML/CSS showcasing projects and contact info.</p>
+                    <p><a href="#" class="project-link">View project</a></p>
+                </div>
+                <div class="project-item">
+                    <h3>Data Analysis Pipeline</h3>
+                    <p>Data cleaning and visualization pipeline using Pandas and Plotly to derive business insights.</p>
+                    <p><a href="notebook.ipynb" class="project-link" target="_blank" rel="noopener">View project</a></p>
+                </div>
             </div>
         </section>
 
@@ -358,29 +584,7 @@
             </div>
         </section>
 
-        <!-- Contact Section -->
-        <section id="contact">
-            <h2>Contact Me</h2>
-            <p>I'd love to hear from you! Feel free to reach out through any of the following channels:</p>
-            <div class="contact-info">
-                <div class="contact-item">
-                    <h3>Email</h3>
-                    <p><a href="https://mail.google.com/mail/?view=cm&fs=1&to=npobanz023@gmail.com" target="_blank" rel="noopener">npobanz023@gmail.com</a></p>
-                </div>
-                <div class="contact-item">
-                    <h3>LinkedIn</h3>
-                    <p><a href="https://www.linkedin.com/in/nicholas-pobanz-044799238" target="_blank" rel="noopener">www.linkedin.com/in/nicholas-pobanz-044799238</a></p>
-                </div>
-                <div class="contact-item">
-                    <h3>Phone</h3>
-                    <p><a href="tel:210-854-2713">210-854-2713</a></p>
-                </div>
-                <div class="contact-item">
-                    <h3>Location</h3>
-                    <p>6315 Heathers Bend, San Antonio, Texas 78227</p>
-                </div>
-            </div>
-        </section>
+        <!-- Contact Section removed: moved into header -->
     </div>
 
     <!-- Footer -->
